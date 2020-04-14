@@ -19,7 +19,9 @@ const propTypes = {
 	gProps: PropTypes.object.isRequired,
 	pathProps: PropTypes.object.isRequired,
 	svgProps: PropTypes.object.isRequired,
-	textProps: PropTypes.object.isRequired
+	textProps: PropTypes.object.isRequired,
+	rect: PropTypes.bool.isRequired,
+	rectProps: PropTypes.object.isRequired,
 };
 
 export default class Container extends React.PureComponent {
@@ -52,6 +54,8 @@ export default class Container extends React.PureComponent {
 						circleProps={{ ...this.props.circleProps, ...node.data.circleProps }}
 						gProps={{ ...this.props.gProps, ...node.data.gProps }}
 						textProps={{ ...this.props.textProps, ...node.data.textProps }}
+						rect={this.props.rect}
+						rectProps={this.props.rectProps}
 						{...node.data}/>)
 				}
 			</svg>);

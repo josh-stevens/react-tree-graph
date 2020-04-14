@@ -23,14 +23,16 @@ const propTypes = {
 		right: PropTypes.number.isRequired,
 		top: PropTypes.number.isRequired
 	}).isRequired,
-	pathFunc: PropTypes.string,
+	pathFunc: PropTypes.func,
 	nodeOffset: PropTypes.number.isRequired,
 	nodeRadius: PropTypes.number.isRequired,
 	circleProps: PropTypes.object.isRequired,
 	gProps: PropTypes.object.isRequired,
 	pathProps: PropTypes.object.isRequired,
 	svgProps: PropTypes.object.isRequired,
-	textProps: PropTypes.object.isRequired
+	textProps: PropTypes.object.isRequired,
+	rect: PropTypes.bool.isRequired,
+	rectProps: PropTypes.object.isRequired
 };
 
 const defaultProps = {
@@ -53,7 +55,9 @@ const defaultProps = {
 	gProps: {},
 	pathProps: {},
 	svgProps: {},
-	textProps: {}
+	textProps: {},
+	rect: false,
+	rectProps: {},
 };
 
 export default class Tree extends React.PureComponent {
@@ -92,7 +96,9 @@ export default class Tree extends React.PureComponent {
 				gProps={{ className: 'node', ...this.props.gProps }}
 				pathProps={{ className: 'link', ...this.props.pathProps }}
 				svgProps={this.props.svgProps}
-				textProps={this.props.textProps}>
+				textProps={this.props.textProps}
+				rect={this.props.rect}
+				rectProps={this.props.rectProps}>
 				{ this.props.children }
 			</Animated>);
 	}

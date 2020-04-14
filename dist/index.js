@@ -319,7 +319,9 @@
 		radius: PropTypes.number.isRequired,
 		circleProps: PropTypes.object.isRequired,
 		gProps: PropTypes.object.isRequired,
-		textProps: PropTypes.object.isRequired
+		textProps: PropTypes.object.isRequired,
+		rect: PropTypes.bool.isRequired,
+		rectProps: PropTypes.object.isRequired
 	};
 
 	var Node = /*#__PURE__*/ (function(_React$PureComponent) {
@@ -350,6 +352,10 @@
 						this.props.circleProps,
 						this.props[this.props.keyProp]
 					);
+					var wrappedRectProps = wrapHandlers(
+						this.props.rectProps,
+						this.props[this.props.keyProp]
+					);
 					var wrappedGProps = wrapHandlers(
 						this.props.gProps,
 						this.props[this.props.keyProp]
@@ -363,18 +369,23 @@
 						_extends({}, wrappedGProps, {
 							transform: this.getTransform()
 						}),
-						React.createElement(
-							'circle',
-							_extends({}, wrappedCircleProps, {
-								r: this.props.radius
-							})
-						),
+						this.props.rect
+							? React.createElement('rect', wrappedRectProps)
+							: React.createElement(
+									'circle',
+									_extends({}, wrappedCircleProps, {
+										r: this.props.radius
+									})
+							  ),
 						React.createElement(
 							'text',
-							_extends({}, wrappedTextProps, {
-								dx: this.props.radius + 0.5,
-								dy: this.props.offset
-							}),
+							_extends(
+								{
+									dx: this.props.radius + 0.5,
+									dy: this.props.offset
+								},
+								wrappedTextProps
+							),
 							this.props[this.props.labelProp]
 						)
 					);
@@ -402,7 +413,9 @@
 		gProps: PropTypes.object.isRequired,
 		pathProps: PropTypes.object.isRequired,
 		svgProps: PropTypes.object.isRequired,
-		textProps: PropTypes.object.isRequired
+		textProps: PropTypes.object.isRequired,
+		rect: PropTypes.bool.isRequired,
+		rectProps: PropTypes.object.isRequired
 	};
 
 	var Container = /*#__PURE__*/ (function(_React$PureComponent) {
@@ -478,7 +491,9 @@
 											_this.props.textProps,
 											{},
 											node.data.textProps
-										)
+										),
+										rect: _this.props.rect,
+										rectProps: _this.props.rectProps
 									},
 									node.data
 								)
@@ -873,14 +888,16 @@
 			right: PropTypes.number.isRequired,
 			top: PropTypes.number.isRequired
 		}).isRequired,
-		pathFunc: PropTypes.string,
+		pathFunc: PropTypes.func,
 		nodeOffset: PropTypes.number.isRequired,
 		nodeRadius: PropTypes.number.isRequired,
 		circleProps: PropTypes.object.isRequired,
 		gProps: PropTypes.object.isRequired,
 		pathProps: PropTypes.object.isRequired,
 		svgProps: PropTypes.object.isRequired,
-		textProps: PropTypes.object.isRequired
+		textProps: PropTypes.object.isRequired,
+		rect: PropTypes.bool.isRequired,
+		rectProps: PropTypes.object.isRequired
 	};
 	var defaultProps$1 = {
 		animated: false,
@@ -904,7 +921,9 @@
 		gProps: {},
 		pathProps: {},
 		svgProps: {},
-		textProps: {}
+		textProps: {},
+		rect: false,
+		rectProps: {}
 	};
 
 	var Tree = /*#__PURE__*/ (function(_React$PureComponent) {
@@ -977,7 +996,9 @@
 								this.props.pathProps
 							),
 							svgProps: this.props.svgProps,
-							textProps: this.props.textProps
+							textProps: this.props.textProps,
+							rect: this.props.rect,
+							rectProps: this.props.rectProps
 						},
 						this.props.children
 					);

@@ -11,7 +11,9 @@ const propTypes = {
 	radius: PropTypes.number.isRequired,
 	circleProps: PropTypes.object.isRequired,
 	gProps: PropTypes.object.isRequired,
-	textProps: PropTypes.object.isRequired
+	textProps: PropTypes.object.isRequired,
+	rect: PropTypes.bool.isRequired,
+	rectProps: PropTypes.object.isRequired,
 };
 
 export default class Node extends React.PureComponent {
@@ -22,6 +24,11 @@ export default class Node extends React.PureComponent {
 	render() {
 		const wrappedCircleProps = wrapHandlers(
 			this.props.circleProps,
+			this.props[this.props.keyProp]
+		);
+
+		const wrappedRectProps = wrapHandlers(
+			this.props.rectProps,
 			this.props[this.props.keyProp]
 		);
 
@@ -37,8 +44,11 @@ export default class Node extends React.PureComponent {
 
 		return (
 			<g {...wrappedGProps} transform={this.getTransform()}>
-				<circle {...wrappedCircleProps} r={this.props.radius}/>
-				<text {...wrappedTextProps} dx={this.props.radius + 0.5} dy={this.props.offset}>
+				{this.props.rect ? 
+				  <rect {...wrappedRectProps} /> :
+				  <circle {...wrappedCircleProps} r={this.props.radius}/>
+				}
+				<text dx={this.props.radius + 0.5} dy={this.props.offset} {...wrappedTextProps}>
 					{this.props[this.props.labelProp]}
 				</text>
 			</g>);
