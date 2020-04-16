@@ -51,12 +51,13 @@ export default class Container extends React.PureComponent {
 						radius={this.props.nodeRadius}
 						x={node.x}
 						y={node.y}
+						rect={this.props.rect}
+						{...node.data}
 						circleProps={{ ...this.props.circleProps, ...node.data.circleProps }}
 						gProps={{ ...this.props.gProps, ...node.data.gProps }}
 						textProps={{ ...this.props.textProps, ...node.data.textProps }}
-						rect={this.props.rect}
-						rectProps={this.props.rectProps}
-						{...node.data}/>)
+						rectProps={{ ...this.props.rectProps, ...node.data.rectProps }}
+					/>)
 				}
 			</svg>);
 	}

@@ -474,6 +474,10 @@
 										radius: _this.props.nodeRadius,
 										x: node.x,
 										y: node.y,
+										rect: _this.props.rect
+									},
+									node.data,
+									{
 										circleProps: _objectSpread2(
 											{},
 											_this.props.circleProps,
@@ -492,10 +496,13 @@
 											{},
 											node.data.textProps
 										),
-										rect: _this.props.rect,
-										rectProps: _this.props.rectProps
-									},
-									node.data
+										rectProps: _objectSpread2(
+											{},
+											_this.props.rectProps,
+											{},
+											node.data.rectProps
+										)
+									}
 								)
 							);
 						})
