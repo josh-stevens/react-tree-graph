@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import wrapHandlers from '../wrapHandlers';
+import CollapseButton from './collapse';
 
 const propTypes = {
 	x: PropTypes.number.isRequired,
@@ -14,6 +15,7 @@ const propTypes = {
 	textProps: PropTypes.object.isRequired,
 	rect: PropTypes.bool.isRequired,
 	rectProps: PropTypes.object.isRequired,
+	collapsible: PropTypes.bool.isRequired,
 };
 
 export default class Node extends React.PureComponent {
@@ -42,11 +44,20 @@ export default class Node extends React.PureComponent {
 			this.props[this.props.keyProp]
 		);
 
+		const isCollapsible = this.props.collapsible && (this.props.children || this.props.collapsed);
+
 		return (
 			<g {...wrappedGProps} transform={this.getTransform()}>
 				{this.props.rect ? 
 				  <rect {...wrappedRectProps} /> :
 				  <circle {...wrappedCircleProps} r={this.props.radius}/>
+				}
+				{isCollapsible && 
+					<CollapseButton
+						id={this.props[this.props.keyProp]}
+						onCollapseClick={this.props.onCollapseClick}
+						collapsed={this.props.collapsed}
+					/>
 				}
 				<text dx={this.props.radius + 0.5} dy={this.props.offset} {...wrappedTextProps}>
 					{this.props[this.props.labelProp]}

@@ -22,6 +22,8 @@ const propTypes = {
 	textProps: PropTypes.object.isRequired,
 	rect: PropTypes.bool.isRequired,
 	rectProps: PropTypes.object.isRequired,
+	collapsible: PropTypes.bool.isRequired,
+	onCollapseClick: PropTypes.func.isRequired,
 };
 
 export default class Container extends React.PureComponent {
@@ -57,6 +59,8 @@ export default class Container extends React.PureComponent {
 						gProps={{ ...this.props.gProps, ...node.data.gProps }}
 						textProps={{ ...this.props.textProps, ...node.data.textProps }}
 						rectProps={{ ...this.props.rectProps, ...node.data.rectProps }}
+						collapsible={this.props.collapsible}
+						onCollapseClick={this.props.onCollapseClick}
 					/>)
 				}
 			</svg>);

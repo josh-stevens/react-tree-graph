@@ -32,7 +32,9 @@ const propTypes = {
 	svgProps: PropTypes.object.isRequired,
 	textProps: PropTypes.object.isRequired,
 	rect: PropTypes.bool.isRequired,
-	rectProps: PropTypes.object.isRequired
+	rectProps: PropTypes.object.isRequired,
+	collapsible: PropTypes.bool.isRequired,
+	onCollapseClick: PropTypes.func.isRequired,
 };
 
 const defaultProps = {
@@ -58,6 +60,8 @@ const defaultProps = {
 	textProps: {},
 	rect: false,
 	rectProps: {},
+	collapsible: false,
+	onCollapseClick: () => {},
 };
 
 export default class Tree extends React.PureComponent {
@@ -98,7 +102,9 @@ export default class Tree extends React.PureComponent {
 				svgProps={this.props.svgProps}
 				textProps={this.props.textProps}
 				rect={this.props.rect}
-				rectProps={this.props.rectProps}>
+				rectProps={this.props.rectProps}
+				collapsible={this.props.collapsible}
+				onCollapseClick={this.props.onCollapseClick}>
 				{ this.props.children }
 			</Animated>);
 	}

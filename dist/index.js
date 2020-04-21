@@ -311,6 +311,68 @@
 	Link.propTypes = propTypes;
 
 	var propTypes$1 = {
+		id: PropTypes.any.isRequired,
+		onCollapseClick: PropTypes.func.isRequired
+	};
+
+	var Collapse = /*#__PURE__*/ (function(_React$PureComponent) {
+		_inherits(Collapse, _React$PureComponent);
+
+		function Collapse(props) {
+			var _this;
+
+			_classCallCheck(this, Collapse);
+
+			_this = _possibleConstructorReturn(
+				this,
+				_getPrototypeOf(Collapse).call(this, props)
+			);
+			_this.onClick = _this.onClick.bind(_assertThisInitialized(_this));
+			return _this;
+		}
+
+		_createClass(Collapse, [
+			{
+				key: 'onClick',
+				value: function onClick(e) {
+					e.stopPropagation();
+					this.props.onCollapseClick(e, this.props.id);
+				}
+			},
+			{
+				key: 'render',
+				value: function render() {
+					return React.createElement(
+						'g',
+						null,
+						React.createElement('circle', {
+							cx: '70',
+							r: '13',
+							stroke: '#4e5d6c',
+							fillOpacity: '0',
+							onClick: this.onClick
+						}),
+						React.createElement('path', {
+							d: 'M 65 0 H 75',
+							stroke: '#fff',
+							strokeWidth: '2px'
+						}),
+						this.props.collapsed &&
+							React.createElement('path', {
+								d: 'M 70 5 V -5',
+								stroke: '#fff',
+								strokeWidth: '2px'
+							})
+					);
+				}
+			}
+		]);
+
+		return Collapse;
+	})(React.PureComponent);
+	Collapse.propTypes = propTypes$1;
+
+	var propTypes$2 = {
 		x: PropTypes.number.isRequired,
 		y: PropTypes.number.isRequired,
 		keyProp: PropTypes.string.isRequired,
@@ -321,7 +383,8 @@
 		gProps: PropTypes.object.isRequired,
 		textProps: PropTypes.object.isRequired,
 		rect: PropTypes.bool.isRequired,
-		rectProps: PropTypes.object.isRequired
+		rectProps: PropTypes.object.isRequired,
+		collapsible: PropTypes.bool.isRequired
 	};
 
 	var Node = /*#__PURE__*/ (function(_React$PureComponent) {
@@ -364,6 +427,9 @@
 						this.props.textProps,
 						this.props[this.props.keyProp]
 					);
+					var isCollapsible =
+						this.props.collapsible &&
+						(this.props.children || this.props.collapsed);
 					return React.createElement(
 						'g',
 						_extends({}, wrappedGProps, {
@@ -377,6 +443,12 @@
 										r: this.props.radius
 									})
 							  ),
+						isCollapsible &&
+							React.createElement(Collapse, {
+								id: this.props[this.props.keyProp],
+								onCollapseClick: this.props.onCollapseClick,
+								collapsed: this.props.collapsed
+							}),
 						React.createElement(
 							'text',
 							_extends(
@@ -395,9 +467,9 @@
 
 		return Node;
 	})(React.PureComponent);
-	Node.propTypes = propTypes$1;
+	Node.propTypes = propTypes$2;
 
-	var propTypes$2 = {
+	var propTypes$3 = {
 		children: PropTypes.node,
 		height: PropTypes.number.isRequired,
 		keyProp: PropTypes.string.isRequired,
@@ -415,7 +487,9 @@
 		svgProps: PropTypes.object.isRequired,
 		textProps: PropTypes.object.isRequired,
 		rect: PropTypes.bool.isRequired,
-		rectProps: PropTypes.object.isRequired
+		rectProps: PropTypes.object.isRequired,
+		collapsible: PropTypes.bool.isRequired,
+		onCollapseClick: PropTypes.func.isRequired
 	};
 
 	var Container = /*#__PURE__*/ (function(_React$PureComponent) {
@@ -501,7 +575,9 @@
 											_this.props.rectProps,
 											{},
 											node.data.rectProps
-										)
+										),
+										collapsible: _this.props.collapsible,
+										onCollapseClick: _this.props.onCollapseClick
 									}
 								)
 							);
@@ -513,9 +589,9 @@
 
 		return Container;
 	})(React.PureComponent);
-	Container.propTypes = propTypes$2;
+	Container.propTypes = propTypes$3;
 
-	var propTypes$3 = {
+	var propTypes$4 = {
 		animated: PropTypes.bool.isRequired,
 		getChildren: PropTypes.func.isRequired,
 		keyProp: PropTypes.string.isRequired,
@@ -875,9 +951,9 @@
 
 		return Animated;
 	})(React.PureComponent);
-	Animated.propTypes = propTypes$3;
+	Animated.propTypes = propTypes$4;
 
-	var propTypes$4 = {
+	var propTypes$5 = {
 		data: PropTypes.object.isRequired,
 		animated: PropTypes.bool.isRequired,
 		children: PropTypes.node,
@@ -904,7 +980,9 @@
 		svgProps: PropTypes.object.isRequired,
 		textProps: PropTypes.object.isRequired,
 		rect: PropTypes.bool.isRequired,
-		rectProps: PropTypes.object.isRequired
+		rectProps: PropTypes.object.isRequired,
+		collapsible: PropTypes.bool.isRequired,
+		onCollapseClick: PropTypes.func.isRequired
 	};
 	var defaultProps$1 = {
 		animated: false,
@@ -930,7 +1008,9 @@
 		svgProps: {},
 		textProps: {},
 		rect: false,
-		rectProps: {}
+		rectProps: {},
+		collapsible: false,
+		onCollapseClick: function onCollapseClick() {}
 	};
 
 	var Tree = /*#__PURE__*/ (function(_React$PureComponent) {
@@ -1005,7 +1085,9 @@
 							svgProps: this.props.svgProps,
 							textProps: this.props.textProps,
 							rect: this.props.rect,
-							rectProps: this.props.rectProps
+							rectProps: this.props.rectProps,
+							collapsible: this.props.collapsible,
+							onCollapseClick: this.props.onCollapseClick
 						},
 						this.props.children
 					);
@@ -1015,7 +1097,7 @@
 
 		return Tree;
 	})(React.PureComponent);
-	Tree.propTypes = propTypes$4;
+	Tree.propTypes = propTypes$5;
 	Tree.defaultProps = defaultProps$1;
 
 	return Tree;
