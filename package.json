@@ -1,14 +1,18 @@
 {
   "name": "react-tree-graph",
-  "version": "4.2.2",
+  "version": "4.2.3",
   "description": "Generates a tree graph from data",
   "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git@bitbucket.org:jsteve-sc/react-tree-graph.git"
   },
-  "publishConfig":{"registry":"https://sparkcognition.jfrog.io/artifactory/api/npm/npm/"},
-  "files": ["dist/**/*"],
+  "publishConfig": {
+    "registry": "https://sparkcognition.jfrog.io/artifactory/api/npm/npm/"
+  },
+  "files": [
+    "dist/**/*"
+  ],
   "keywords": [
     "d3",
     "graph",

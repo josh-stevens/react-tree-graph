@@ -19,8 +19,8 @@ export default class Collapse extends React.PureComponent {
 
   render() {
     return (
-      <g>
-        <circle cx="70" r="13" stroke="#4e5d6c" fillOpacity="0" onClick={this.onClick}></circle>
+      <g onClick={this.onClick}>
+        <circle cx="70" r="13" stroke="#4e5d6c" fillOpacity="0"></circle>
         <path d="M 65 0 H 75" stroke="#fff" strokeWidth="2px" />
         {this.props.collapsed && <path d="M 70 5 V -5" stroke="#fff" strokeWidth="2px" />}
       </g>

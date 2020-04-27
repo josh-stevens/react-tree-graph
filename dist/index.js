@@ -344,13 +344,14 @@
 				value: function render() {
 					return React.createElement(
 						'g',
-						null,
+						{
+							onClick: this.onClick
+						},
 						React.createElement('circle', {
 							cx: '70',
 							r: '13',
 							stroke: '#4e5d6c',
-							fillOpacity: '0',
-							onClick: this.onClick
+							fillOpacity: '0'
 						}),
 						React.createElement('path', {
 							d: 'M 65 0 H 75',
