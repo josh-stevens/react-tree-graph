@@ -1,6 +1,6 @@
 {
   "name": "react-tree-graph",
-  "version": "4.2.3",
+  "version": "4.2.4",
   "description": "Generates a tree graph from data",
   "main": "dist/index.js",
   "repository": {

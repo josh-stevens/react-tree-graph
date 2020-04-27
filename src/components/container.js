@@ -28,10 +28,21 @@ const propTypes = {
 
 export default class Container extends React.PureComponent {
 	render() {
+		const sortedLinks = this.props.links.sort((a, b) => {
+			if (a.target.data.pathProps && b.target.data.pathProps) {
+				return 0;
+			}
+			if (a.target.data.pathProps) {
+				return 1;
+			}
+			if (b.target.data.pathProps) {
+				return -1;
+			}
+		});
 		return (
 			<svg {...this.props.svgProps} height={this.props.height} width={this.props.width}>
 				{ this.props.children }
-				{ this.props.links.map(link =>
+				{ sortedLinks.map(link =>
 					<Link
 						key={link.target.data[this.props.keyProp]}
 						keyProp={this.props.keyProp}

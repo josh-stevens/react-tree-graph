@@ -511,6 +511,19 @@
 				value: function render() {
 					var _this = this;
 
+					var sortedLinks = this.props.links.sort(function(a, b) {
+						if (a.target.data.pathProps && b.target.data.pathProps) {
+							return 0;
+						}
+
+						if (a.target.data.pathProps) {
+							return 1;
+						}
+
+						if (b.target.data.pathProps) {
+							return -1;
+						}
+					});
 					return React.createElement(
 						'svg',
 						_extends({}, this.props.svgProps, {
@@ -518,7 +531,7 @@
 							width: this.props.width
 						}),
 						this.props.children,
-						this.props.links.map(function(link) {
+						sortedLinks.map(function(link) {
 							return React.createElement(Link, {
 								key: link.target.data[_this.props.keyProp],
 								keyProp: _this.props.keyProp,
